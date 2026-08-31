@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.InteropServices;
 
 namespace mainTeaRex
 {
@@ -7,6 +8,8 @@ namespace mainTeaRex
         static void Main(string[] args)
         {
             Console.WriteLine("Hello, TeaRex!");
+            [DLLImport(@"E:\Projects\tea_rex\programopen.cs")];
+            static extern void openProgram();
         }
     }
 }
