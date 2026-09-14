@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <RootNamespace>mainTeaRex</RootNamespace>
+    <StartupObject>mainTeaRex.Program</StartupObject>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <NoWarn>MSB3277</NoWarn>
+  </PropertyGroup>
+
+  <!-- 🟢 ADD THIS BLOCK TO BAN THE COMPILER FROM SCANNING THE TEST SUBFOLDER -->
+  <ItemGroup>
+    <Compile Remove="PlaywrightTests\**" />
+    <EmbeddedResource Remove="PlaywrightTests\**" />
+    <None Remove="PlaywrightTests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Sandbox">
+      <HintPath>libs\Sandbox.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="5.9.0" />
+    <PackageReference Include="Microsoft.Playwright" Version="1.62.0" />
+  </ItemGroup>
+
+</Project>
