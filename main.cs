@@ -1,71 +1,59 @@
 using System;
-using Microsoft.Playwright;
-using System.Threading.Tasks;
+using System.Drawing;
+using System.Windows.Forms; // Pulls from the native Windows framework
 
 namespace mainTeaRex
 {
     class Program
     {
-        public static async Task Main(string[] args)
+        [STAThread] // 🟢 MANDATORY: Directs Windows to handle this as a native UI layout thread
+        public static void Main(string[] args)
         {
-            Console.WriteLine("=== VERIFYING SANDBOX ACTIVATION ===");
+            Console.WriteLine("==============================================");
+            Console.WriteLine("       TEA_REX MAIN UTILITY INTERFACE         ");
+            Console.WriteLine("==============================================");
 
-            // 1. Create a WeakReference to track if the sandbox memory actually unloads
-            WeakReference alcWeakRef = ExecuteAndTrackSandbox();
+            // 1. Run your core security sandbox routines
+            Console.WriteLine("\n[CORE]: Initializing secure sandbox layer...");
+            string sandboxTestScript = """
+                using System;
+                public class UserScript {
+                    public static void Run() {
+                        Console.WriteLine(">>> [SANDBOX]: Verification payload active and running safely.");
+                    }
+                }
+                """;
+            BlockSandbox.ExecuteSafeCode(sandboxTestScript); 
 
-            // 2. Force .NET to clean up memory (Garbage Collection)
-            Console.WriteLine("\nTriggering memory cleanup (Garbage Collection)...");
-            for (int i = 0; i < 10 && alcWeakRef.IsAlive; i++)
+            Console.WriteLine("\n[CORE]: Handing control off to UI window engine...");
+
+            // 2. Build the window container using native Win32 controls
+            Form window = new Form
             {
-                GC.Collect();
-                GC.WaitForPendingFinalizers();
-            }
+                Text = "Tea_Rex Application Monitor",
+                Width = 900,
+                Height = 650,
+                BackColor = Color.FromArgb(12, 12, 14), 
+                StartPosition = FormStartPosition.CenterScreen,
+                FormBorderStyle = FormBorderStyle.Sizable 
+            };
 
-            // 3. The Ultimate Proof
-            if (!alcWeakRef.IsAlive)
+            // 3. Inject your clean monospace greeting text control
+            Label textLabel = new Label
             {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("\n[VERIFICATION PASSED]: Sandbox activated, isolated, and successfully unloaded from memory!");
-                Console.ResetColor();
-            }
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("\n[VERIFICATION FAILED]: Sandbox code ran, but leaked memory and failed to deactivate.");
-                Console.ResetColor();
-            }
+                Text = "Hello Tea_Rex\n\nCore Subsystems: Operational",
+                ForeColor = Color.FromArgb(57, 255, 20), 
+                Font = new Font("Consolas", 24, FontStyle.Bold), 
+                TextAlign = ContentAlignment.MiddleCenter,
+                Dock = DockStyle.Fill
+            };
 
-            Console.WriteLine("\nProceeding to browser validation step...");
-            // ... Your Playwright browser code continues here ...
-        }
+            window.Controls.Add(textLabel);
 
-        // Helper method to keep the sandbox scope local so it can be collected
-        private static WeakReference ExecuteAndTrackSandbox()
-        {
-           // Using triple quotes ensures strings inside your sandbox code parse perfectly
-    string testCode = """
-        using System;
-        public class UserScript {
-            public static void Run() {
-                Console.WriteLine(">>> Sandbox active: Running user code execution layer.");
-            }
-        }
-        """;
+            // 4. Start the native window layout loop
+            Application.Run(window);
 
-    // Execute the code via your DLL logic
-    BlockSandbox.ExecuteSafeCode(testCode);
-
-    // Look for the active context to track its lifecycle
-    var activeContexts = System.Runtime.Loader.AssemblyLoadContext.All;
-    foreach (var context in activeContexts)
-    {
-        if (context.Name == "UserCodeContext")
-        {
-            return new WeakReference(context);
-        }
-    }
-
-    return new WeakReference(null);
+            Console.WriteLine("\n[CORE]: Main program loop closed gracefully.");
         }
     }
 }

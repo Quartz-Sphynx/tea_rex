@@ -2,15 +2,19 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net9.0</TargetFramework>
+    <!-- 🟢 UPDATE THIS: Tell .NET you are targeting the native Windows SDK -->
+    <TargetFramework>net9.0-windows</TargetFramework>
     <RootNamespace>mainTeaRex</RootNamespace>
     <StartupObject>mainTeaRex.Program</StartupObject>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <NoWarn>MSB3277</NoWarn>
+    
+    <!-- 🟢 LEAVE THIS ACTIVE: Tells .NET to unpack the Windows Forms components -->
+    <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
-  <!-- 🟢 ADD THIS BLOCK TO BAN THE COMPILER FROM SCANNING THE TEST SUBFOLDER -->
+  <!-- BAN THE COMPILER FROM SCANNING THE TEST SUBFOLDER -->
   <ItemGroup>
     <Compile Remove="PlaywrightTests\**" />
     <EmbeddedResource Remove="PlaywrightTests\**" />
@@ -18,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <!-- Your Security Sandbox Binary -->
     <Reference Include="Sandbox">
       <HintPath>libs\Sandbox.dll</HintPath>
     </Reference>
@@ -25,7 +30,6 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="5.9.0" />
-    <PackageReference Include="Microsoft.Playwright" Version="1.62.0" />
   </ItemGroup>
 
 </Project>
