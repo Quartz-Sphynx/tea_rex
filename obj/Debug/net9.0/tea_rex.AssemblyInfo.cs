@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("tea_rex")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f09ef52adb70937f9f01c71502e50091b5d63bee")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+79e9becffe6a427f857ae099244a9700c57f4dfb")]
 [assembly: System.Reflection.AssemblyProductAttribute("tea_rex")]
 [assembly: System.Reflection.AssemblyTitleAttribute("tea_rex")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -149,6 +149,7 @@ E:\Projects\tea_rex\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.CSharp.resources.
 E:\Projects\tea_rex\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
 E:\Projects\tea_rex\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
 E:\Projects\tea_rex\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\Projects\tea_rex\bin\Debug\net9.0\open-window.dll
 E:\Projects\tea_rex\bin\Debug\net9.0\Sandbox.dll
 E:\Projects\tea_rex\obj\Debug\net9.0\tea_rex.csproj.AssemblyReference.cache
 E:\Projects\tea_rex\obj\Debug\net9.0\tea_rex.GeneratedMSBuildEditorConfig.editorconfig

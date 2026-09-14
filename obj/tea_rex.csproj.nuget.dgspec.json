@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "e:\\Projects\\tea_rex\\tea_rex.csproj": {}
+    "E:\\Projects\\tea_rex\\tea_rex.csproj": {}
   },
   "projects": {
-    "e:\\Projects\\tea_rex\\tea_rex.csproj": {
+    "E:\\Projects\\tea_rex\\tea_rex.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "e:\\Projects\\tea_rex\\tea_rex.csproj",
+        "projectUniqueName": "E:\\Projects\\tea_rex\\tea_rex.csproj",
         "projectName": "tea_rex",
-        "projectPath": "e:\\Projects\\tea_rex\\tea_rex.csproj",
+        "projectPath": "E:\\Projects\\tea_rex\\tea_rex.csproj",
         "packagesPath": "C:\\Users\\laure\\.nuget\\packages\\",
-        "outputPath": "e:\\Projects\\tea_rex\\obj\\",
+        "outputPath": "E:\\Projects\\tea_rex\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\laure\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -69,7 +69,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files (x86)\\dotnet\\sdk\\9.0.318/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

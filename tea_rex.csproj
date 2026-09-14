@@ -8,9 +8,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <NoWarn>MSB3277</NoWarn>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
 
-  <!-- 🟢 ADD THIS BLOCK TO BAN THE COMPILER FROM SCANNING THE TEST SUBFOLDER -->
+  <!-- BAN THE COMPILER FROM SCANNING THE TEST SUBFOLDER -->
   <ItemGroup>
     <Compile Remove="PlaywrightTests\**" />
     <EmbeddedResource Remove="PlaywrightTests\**" />
@@ -18,13 +19,23 @@
   </ItemGroup>
 
   <ItemGroup>
+    <!-- Your Security Sandbox Assembly Reference -->
     <Reference Include="Sandbox">
       <HintPath>libs\Sandbox.dll</HintPath>
+    </Reference>
+    
+    <!-- Your new reusable window launcher assembly reference -->
+    <Reference Include="OpenWindow">
+      <HintPath>libs\open-window.dll</HintPath>
     </Reference>
   </ItemGroup>
 
   <ItemGroup>
+    <!-- Roslyn Compiler package for your sandbox to run -->
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="5.9.0" />
+    
+    <!-- 🟢 RE-ACTIVATED THIS: Your main project MUST explicitly have this -->
+    <!-- so the compiler actually bundles the Playwright files into bin/Debug -->
     <PackageReference Include="Microsoft.Playwright" Version="1.62.0" />
   </ItemGroup>
 

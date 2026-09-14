@@ -1,6 +1,6 @@
 using System;
-using Microsoft.Playwright;
 using System.Threading.Tasks;
+using OpenWindow; // Your new window library DLL
 
 namespace mainTeaRex
 {
@@ -8,64 +8,54 @@ namespace mainTeaRex
     {
         public static async Task Main(string[] args)
         {
-            Console.WriteLine("=== VERIFYING SANDBOX ACTIVATION ===");
+            Console.WriteLine("==============================================");
+            Console.WriteLine("       TEA_REX MAIN UTILITY INTERFACE         ");
+            Console.WriteLine("==============================================");
 
-            // 1. Create a WeakReference to track if the sandbox memory actually unloads
-            WeakReference alcWeakRef = ExecuteAndTrackSandbox();
+            // 1. YOUR SANDBOX GOES HERE 🟢
+            // It compiles and executes security payloads before anything else starts
+            Console.WriteLine("\n[CORE]: Initializing secure sandbox layer...");
+            string sandboxTestScript = """
+                using System;
+                public class UserScript {
+                    public static void Run() {
+                        Console.WriteLine(">>> [SANDBOX]: Verification payload active and running safely.");
+                    }
+                }
+                """;
+            BlockSandbox.ExecuteSafeCode(sandboxTestScript); 
 
-            // 2. Force .NET to clean up memory (Garbage Collection)
-            Console.WriteLine("\nTriggering memory cleanup (Garbage Collection)...");
-            for (int i = 0; i < 10 && alcWeakRef.IsAlive; i++)
-            {
-                GC.Collect();
-                GC.WaitForPendingFinalizers();
-            }
 
-            // 3. The Ultimate Proof
-            if (!alcWeakRef.IsAlive)
-            {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("\n[VERIFICATION PASSED]: Sandbox activated, isolated, and successfully unloaded from memory!");
-                Console.ResetColor();
-            }
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("\n[VERIFICATION FAILED]: Sandbox code ran, but leaked memory and failed to deactivate.");
-                Console.ResetColor();
-            }
+            // 2. Define the specific HTML look you want this project to display
+            string teaRexLayout = """
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <style>
+                        body { background: #0c0c0e; color: #39ff14; font-family: monospace; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+                        .card { border: 1px dashed #39ff14; padding: 40px; border-radius: 4px; text-align: center; box-shadow: 0 0 20px rgba(57, 255, 20, 0.2); }
+                        h1 { font-size: 3rem; margin: 0 0 10px 0; text-shadow: 0 0 10px #39ff14; }
+                        p { color: #888; }
+                    </style>
+                </head>
+                <body>
+                    <div class="card">
+                        <h1>Hello Tea_Rex</h1>
+                        <p>Core Subsystems: Operational</p>
+                    </div>
+                </body>
+                </html>
+                """;
 
-            Console.WriteLine("\nProceeding to browser validation step...");
-            // ... Your Playwright browser code continues here ...
-        }
+            // 3. YOUR REUSABLE WINDOW ENGINE LAUNCHES HERE 🟢
+            // It automatically detects it is inside 'tea_rex', greets you, and fires the browser
+            Console.WriteLine("\n[CORE]: Handing control off to UI window engine...");
+            await WinOpen.LaunchAsync(
+                htmlContent: teaRexLayout,
+                windowTitle: "Tea_Rex Application Monitor"
+            );
 
-        // Helper method to keep the sandbox scope local so it can be collected
-        private static WeakReference ExecuteAndTrackSandbox()
-        {
-           // Using triple quotes ensures strings inside your sandbox code parse perfectly
-    string testCode = """
-        using System;
-        public class UserScript {
-            public static void Run() {
-                Console.WriteLine(">>> Sandbox active: Running user code execution layer.");
-            }
-        }
-        """;
-
-    // Execute the code via your DLL logic
-    BlockSandbox.ExecuteSafeCode(testCode);
-
-    // Look for the active context to track its lifecycle
-    var activeContexts = System.Runtime.Loader.AssemblyLoadContext.All;
-    foreach (var context in activeContexts)
-    {
-        if (context.Name == "UserCodeContext")
-        {
-            return new WeakReference(context);
-        }
-    }
-
-    return new WeakReference(null);
+            Console.WriteLine("\n[CORE]: Main program loop closed gracefully.");
         }
     }
 }
