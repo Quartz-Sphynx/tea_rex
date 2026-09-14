@@ -6,5 +6,10 @@
     <RootNamespace>mainTeaRex</RootNamespace>
     <StartupObject>mainTeaRex.Program</StartupObject>
   </PropertyGroup>
+  <ItemGroup>
+  <Reference Include="Sandbox">
+    <HintPath>libs\Sandbox.dll</HintPath>
+  </Reference>
+</ItemGroup>
 
 </Project>
