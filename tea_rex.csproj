@@ -2,13 +2,16 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net9.0</TargetFramework>
+    <!-- 🟢 UPDATE THIS: Tell .NET you are targeting the native Windows SDK -->
+    <TargetFramework>net9.0-windows</TargetFramework>
     <RootNamespace>mainTeaRex</RootNamespace>
     <StartupObject>mainTeaRex.Program</StartupObject>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <NoWarn>MSB3277</NoWarn>
-    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    
+    <!-- 🟢 LEAVE THIS ACTIVE: Tells .NET to unpack the Windows Forms components -->
+    <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
   <!-- BAN THE COMPILER FROM SCANNING THE TEST SUBFOLDER -->
@@ -19,24 +22,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!-- Your Security Sandbox Assembly Reference -->
+    <!-- Your Security Sandbox Binary -->
     <Reference Include="Sandbox">
       <HintPath>libs\Sandbox.dll</HintPath>
-    </Reference>
-    
-    <!-- Your new reusable window launcher assembly reference -->
-    <Reference Include="OpenWindow">
-      <HintPath>libs\open-window.dll</HintPath>
     </Reference>
   </ItemGroup>
 
   <ItemGroup>
-    <!-- Roslyn Compiler package for your sandbox to run -->
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="5.9.0" />
-    
-    <!-- 🟢 RE-ACTIVATED THIS: Your main project MUST explicitly have this -->
-    <!-- so the compiler actually bundles the Playwright files into bin/Debug -->
-    <PackageReference Include="Microsoft.Playwright" Version="1.62.0" />
   </ItemGroup>
 
 </Project>

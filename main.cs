@@ -1,19 +1,19 @@
 using System;
-using System.Threading.Tasks;
-using OpenWindow; // Your new window library DLL
+using System.Drawing;
+using System.Windows.Forms; // Pulls from the native Windows framework
 
 namespace mainTeaRex
 {
     class Program
     {
-        public static async Task Main(string[] args)
+        [STAThread] // 🟢 MANDATORY: Directs Windows to handle this as a native UI layout thread
+        public static void Main(string[] args)
         {
             Console.WriteLine("==============================================");
             Console.WriteLine("       TEA_REX MAIN UTILITY INTERFACE         ");
             Console.WriteLine("==============================================");
 
-            // 1. YOUR SANDBOX GOES HERE 🟢
-            // It compiles and executes security payloads before anything else starts
+            // 1. Run your core security sandbox routines
             Console.WriteLine("\n[CORE]: Initializing secure sandbox layer...");
             string sandboxTestScript = """
                 using System;
@@ -25,35 +25,33 @@ namespace mainTeaRex
                 """;
             BlockSandbox.ExecuteSafeCode(sandboxTestScript); 
 
-
-            // 2. Define the specific HTML look you want this project to display
-            string teaRexLayout = """
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <style>
-                        body { background: #0c0c0e; color: #39ff14; font-family: monospace; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-                        .card { border: 1px dashed #39ff14; padding: 40px; border-radius: 4px; text-align: center; box-shadow: 0 0 20px rgba(57, 255, 20, 0.2); }
-                        h1 { font-size: 3rem; margin: 0 0 10px 0; text-shadow: 0 0 10px #39ff14; }
-                        p { color: #888; }
-                    </style>
-                </head>
-                <body>
-                    <div class="card">
-                        <h1>Hello Tea_Rex</h1>
-                        <p>Core Subsystems: Operational</p>
-                    </div>
-                </body>
-                </html>
-                """;
-
-            // 3. YOUR REUSABLE WINDOW ENGINE LAUNCHES HERE 🟢
-            // It automatically detects it is inside 'tea_rex', greets you, and fires the browser
             Console.WriteLine("\n[CORE]: Handing control off to UI window engine...");
-            await WinOpen.LaunchAsync(
-                htmlContent: teaRexLayout,
-                windowTitle: "Tea_Rex Application Monitor"
-            );
+
+            // 2. Build the window container using native Win32 controls
+            Form window = new Form
+            {
+                Text = "Tea_Rex Application Monitor",
+                Width = 900,
+                Height = 650,
+                BackColor = Color.FromArgb(12, 12, 14), 
+                StartPosition = FormStartPosition.CenterScreen,
+                FormBorderStyle = FormBorderStyle.Sizable 
+            };
+
+            // 3. Inject your clean monospace greeting text control
+            Label textLabel = new Label
+            {
+                Text = "Hello Tea_Rex\n\nCore Subsystems: Operational",
+                ForeColor = Color.FromArgb(57, 255, 20), 
+                Font = new Font("Consolas", 24, FontStyle.Bold), 
+                TextAlign = ContentAlignment.MiddleCenter,
+                Dock = DockStyle.Fill
+            };
+
+            window.Controls.Add(textLabel);
+
+            // 4. Start the native window layout loop
+            Application.Run(window);
 
             Console.WriteLine("\n[CORE]: Main program loop closed gracefully.");
         }
